@@ -137,7 +137,7 @@ namespace LoginManagement.DataAccess
             try
             {
 
-            var userrole = dbContext.UserRole.Find(entity.UserId,entity.RoleId);
+            var userrole = dbContext.UserRole.AsNoTracking().FirstOrDefault(c=>c.UserId==entity.UserId);
             dbContext.ChangeTracker.Clear();
             dbContext.ChangeTracker.DetectChanges();
             if (userrole is not null)
@@ -153,7 +153,6 @@ namespace LoginManagement.DataAccess
             else
             {
                 dbContext.UserRole.Add(entity);
-                
                 dbContext.SaveChanges();
                 return entity;
             }

@@ -109,6 +109,7 @@ namespace LoginManagement.UI
             Console.WriteLine("Enter User ID:");
             int id = int.Parse(Console.ReadLine());
             Up.RemoveUser(id);
+            Console.WriteLine("User Removed");
         }
 
         private static void UpdateUser()
@@ -130,6 +131,7 @@ namespace LoginManagement.UI
             Console.Clear();
             Up.UpdateUser(user.UserId,name, firstName, lastName, user.Password);
             }
+            Console.WriteLine("User Updated");
         }
 
         private static void AddUser()
@@ -144,7 +146,7 @@ namespace LoginManagement.UI
             string password = Console.ReadLine();
             Console.Clear();
             Up.AddUser(name,firstName, lastName, password);
-
+            Console.WriteLine("User Added");
         }
 
         private static void FindUserById()
@@ -236,6 +238,7 @@ namespace LoginManagement.UI
             Console.WriteLine("Enter Role ID:");
             int id = int.Parse(Console.ReadLine());
             Rp.RemoveRole(id);
+            Console.WriteLine("Role Removed");
         }
 
         private static void UpdateRole()
@@ -256,6 +259,7 @@ namespace LoginManagement.UI
                 Console.Clear();
                 Rp.UpdateRole(id,name, discription);
             }
+            Console.WriteLine("Role Updated");
         }
 
         private static void AddRole()
@@ -268,6 +272,7 @@ namespace LoginManagement.UI
             
             Console.Clear();
             Rp.AddRole(role,discription);
+            Console.WriteLine("Role Added");
         }
 
         private static void FindRoleById()
@@ -305,35 +310,80 @@ namespace LoginManagement.UI
 
         public static void ManageUserRoles()
         {
+            int choice = -1;
+ 
+            while(choice != 0)
+            {
+
             Console.WriteLine("***** Login Management System ******");
             Console.WriteLine("***** Manage User Roles ******");
+            Console.WriteLine("1.Update User Role");
+            Console.WriteLine("2.Find Role by User Id");
+                Console.WriteLine("0.Exit ");
+
+                choice = int.Parse(Console.ReadLine());
+            switch(choice)
+            {
+                case 1:
+                        UpdateUserRole();
+                        break;
+                    case 2:
+                        FindRoleByUserId();
+                        break;
+                    default:
+                        break;
+
+            }
+           
+            }
+        }
+
+        private static void FindRoleByUserId()
+        {
+            int id;
+            Console.WriteLine("Enter User Id:");
+            id = int.Parse(Console.ReadLine());
+            var role = Up.GetRoleForUser(id);
+            Console.WriteLine($"{role.RoleId}");
+            Console.WriteLine($"{role.RoleName}");
+            Console.WriteLine($"{role.Description}");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        private static void UpdateUserRole()
+        {
             Console.WriteLine("Enter User Id: __");
             int id = int.Parse(Console.ReadLine());
             var roles = Rp.GetAllRoles();
-            
+
             foreach (var role in roles)
-                Console.Write(role.RoleName+ ", ");
+                Console.Write(role.RoleName + ", ");
+
+            Console.WriteLine();
 
             Console.WriteLine("Enter Role Name:");
             string roleChoice = Console.ReadLine();
 
             Console.WriteLine("Save this mapping? Y/N");
             string c = Console.ReadLine();
-            if(c=="Y")
+            if (c == "Y")
             {
 
-            int roleId = 0;
-            foreach (var role in roles)
-            {
+                int roleId = 0;
+                foreach (var role in roles)
+                {
                     if (role.RoleName == roleChoice)
                         roleId = role.RoleId;
-            }
-            Up.UpdateRole(id, roleId);
+                }
+                Up.UpdateRole(id, roleId);
             }
 
             Console.ReadKey();
             Console.Clear();
+            Console.Clear();
         }
+
         static void Main(string[] args)
         {
             int choice = -1;
