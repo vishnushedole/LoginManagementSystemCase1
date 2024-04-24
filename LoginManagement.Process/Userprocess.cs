@@ -1,11 +1,5 @@
 ﻿using LoginManagement.DataAccess;
 using LoginManagement.Entities;
-using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoginManagement.Process
 {
@@ -41,7 +35,7 @@ namespace LoginManagement.Process
             {
 
             var user = UserFactory.CreateNew(name, firstName, lastName, password,true);
-
+                Console.WriteLine(user);
             if (user != null)
                 Userrepository.AddNew(user);
             else

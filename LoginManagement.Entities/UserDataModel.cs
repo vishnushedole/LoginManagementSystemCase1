@@ -18,7 +18,7 @@ namespace LoginManagement.Entities
         public string UserName { get; set; }
 
         [MinLength(8)]
-        [RegularExpression(@"^(?=.[a-zA-Z])(?=.\d).{8,}$", ErrorMessage = "Password must contain at least one letter and one digit")]
+       // [RegularExpression(@"^(?=.[a-zA-Z])(?=.\d).{8,}$", ErrorMessage = "Password must contain at least one letter and one digit")]
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
